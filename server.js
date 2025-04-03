@@ -92,7 +92,6 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// ✅ CORS Middleware (Sabse Pehle Lagao)
 app.use(
   cors({
     origin: [
