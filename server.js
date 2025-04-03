@@ -27,7 +27,7 @@ const PORT = process.env.PORT || 8000;
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["https://zylomart-3bzq.onrender.com/", "http://localhost:3000"],
     methods: ["GET", "PUT", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
