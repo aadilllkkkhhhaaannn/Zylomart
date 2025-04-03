@@ -32,7 +32,7 @@ app.use(
       "http://localhost:3000",
       "https://casualstore-ovy9.vercel.app/",
     ],
-    methods: ["GET", "PUT", "DELETE", "PUT"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
       "Authorization",
