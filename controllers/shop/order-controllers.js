@@ -41,8 +41,8 @@ const createOrder = async (req, res) => {
         payment_method: "paypal",
       },
       redirect_urls: {
-        return_url: `http://localhost:3000/shop/paypal-return?orderId=${newlyCreatedOrder._id}`,
-        cancel_url: "http://localhost:3000/shop/paypal-cancel",
+        return_url: `https://zylomart-3bzq.onrender.com/shop/paypal-return?orderId=${newlyCreatedOrder._id}`,
+        cancel_url: "https://zylomart-3bzq.onrender.com/shop/paypal-cancel",
       },
       transactions: [
         {
