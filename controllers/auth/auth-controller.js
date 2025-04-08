@@ -152,6 +152,7 @@
 // module.exports = { registerUser, loginUser, logoutUser, authMiddleware };
 
 // const bcrypt = require("bcryptjs");
+// 2
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 const validator = require("validator");
