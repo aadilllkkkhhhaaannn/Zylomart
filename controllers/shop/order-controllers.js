@@ -29,7 +29,7 @@ const createOrder = async (req, res) => {
       totalAmount,
       orderDate,
       orderUpdateDate,
-      paymentId: "", 
+      paymentId: "",
       payerId: "",
     });
 
@@ -41,6 +41,9 @@ const createOrder = async (req, res) => {
         payment_method: "paypal",
       },
       redirect_urls: {
+        // return_url: `http://localhost:3000/shop/paypal-return?orderId=${newlyCreatedOrder._id}`,
+        // cancel_url: "http://localhost:3000/shop/paypal-cancel",
+
         return_url: `https://casualstore-ovy9.vercel.app/shop/paypal-return?orderId=${newlyCreatedOrder._id}`,
         cancel_url: "https://casualstore-ovy9.vercel.app/shop/paypal-cancel",
       },
@@ -79,7 +82,7 @@ const createOrder = async (req, res) => {
         res.status(201).json({
           success: true,
           approvalURL,
-          orderId: newlyCreatedOrder._id, 
+          orderId: newlyCreatedOrder._id,
         });
       }
     });
@@ -91,7 +94,6 @@ const createOrder = async (req, res) => {
     });
   }
 };
-
 
 const capturePayment = async (req, res) => {
   try {
