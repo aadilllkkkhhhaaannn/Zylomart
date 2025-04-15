@@ -151,11 +151,11 @@
 
 // module.exports = { registerUser, loginUser, logoutUser, authMiddleware };
 
-// const bcrypt = require("bcryptjs");
 // 2
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 // Valid email
 const isValidEmail = (email) => {
@@ -182,14 +182,14 @@ const registerUser = async (req, res) => {
         message: "User Already exist!",
       });
 
-    // const hashPassword = await bcrypt.hash(password, 12);
+    const hashPassword = await bcrypt.hash(password, 12);
 
     const newUser = new User({
       userName,
       // email,
       email: trimmedEmail,
-      // password: hashPassword,
-      password,
+      password: hashPassword,
+      // password,
     });
 
     await newUser.save();
@@ -226,8 +226,8 @@ const loginUser = async (req, res) => {
       message: "User doesn't exist",
     });
 
-  // const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);
-  const checkPasswordMatch = (password, checkUser.password);
+  const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);
+  // const checkPasswordMatch = (password, checkUser.password);
 
   if (!checkPasswordMatch)
     return res.json({
