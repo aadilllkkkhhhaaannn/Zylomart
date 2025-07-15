@@ -4,6 +4,7 @@ const {
   getAllOrdersOfAllUsers,
   getOrderDetailsForAdmin,
   updateOrderStatus,
+  deleteAllOrders,
 } = require("../../controllers/admin/order-controller");
 
 const router = express.Router();
@@ -11,5 +12,6 @@ const router = express.Router();
 router.get("/get", getAllOrdersOfAllUsers);
 router.get("/details/:id", getOrderDetailsForAdmin);
 router.put("/update/:id", updateOrderStatus);
+router.delete('/:id' , deleteAllOrders)
 
 module.exports = router;

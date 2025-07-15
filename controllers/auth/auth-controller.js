@@ -180,6 +180,7 @@ const registerUser = async (req, res) => {
       return res.json({
         success: false,
         message: "User Already exist!",
+        // user: savedUser,
       });
 
     const hashPassword = await bcrypt.hash(password, 12);
@@ -204,6 +205,8 @@ const registerUser = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Registration Successfully!",
+      // user: newUser,
+
     });
   } catch (e) {
     console.log(e);

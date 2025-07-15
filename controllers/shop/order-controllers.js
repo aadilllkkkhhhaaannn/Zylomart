@@ -100,7 +100,7 @@ const capturePayment = async (req, res) => {
     const { paymentId, payerId, orderId } = req.body;
 
     let order = await Order.findById(orderId);
-
+    console.log(order);
     if (!order) {
       return res.status(404).json({
         success: false,
