@@ -47,6 +47,19 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ✅ HTTP cookies
+app.post("/set-consent", (req, res) => {
+  const { consent } = req.body;
+
+  res.cookie("cookieConsent", consent, {
+    httpOnly: false,
+    secure: true,
+    sameSite: "Lax",
+    maxAge: 1000 * 60 * 60 * 24 * 30,
+  });
+  res.json({ message: "Consent saved" });
+});
+
 // ✅ Routes
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to Zylomart" });
@@ -65,4 +78,6 @@ app.use("/api/shop/review", shopReviewRouter);
 app.use("/api/common/feature", commonFeatureRouter);
 
 // ✅ Server Start
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`🚀 Server running on http://localhost:${PORT}`)
+);
