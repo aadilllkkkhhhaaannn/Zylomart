@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 8000;
 app.use(
   cors({
     origin: [
-      "https://zylomart-3bzq.onrender.com",
+      "https://zylomart-3bzq.onrender.com/",
       "http://localhost:3000",
       "https://casualstore-ovy9.vercel.app",
     ],
