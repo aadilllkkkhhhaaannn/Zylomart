@@ -50,13 +50,15 @@ app.use(express.urlencoded({ extended: true }));
 // ✅ HTTP cookies
 app.post("/set-consent", (req, res) => {
   const { consent } = req.body;
-
   res.cookie("cookieConsent", consent, {
-    httpOnly: false,
-    secure: true,
-    sameSite: "Lax",
-    maxAge: 1000 * 60 * 60 * 24 * 30,
+    httpOnly: false, // js se accesible nhi hoti , Security ke liye
+    // use hota hai → XSS attacks se bachata hai.
+    secure: true, // ✅ deployed HTTPS site me correct
+    sameSite: "Lax", // Ye control karta hai ki cookie cross-site
+    // requests me send hogi ya nahi.
+    maxAge: 1000 * 60 * 60 * 24 * 365 * 20, // optional: long lifetime
   });
+
   res.json({ message: "Consent saved" });
 });
 
