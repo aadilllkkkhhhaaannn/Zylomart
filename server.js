@@ -4,11 +4,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const connectDB = require("./Config/db_config");
 
-// Import Routes
+// Import user Routes
 const authRouter = require("./routets/auth/auth-routes");
-const adminProductsRouter = require("./routets/admin/products-routes");
-const adminOrderRouter = require("./routets/admin/orders-routes");
-const adminUsersRouter = require("./routets/admin/user-routes");
 const shopProductsRouter = require("./routets/shop/products-routes");
 const shopCartRouter = require("./routets/shop/cart-routes");
 const shopAddressRouter = require("./routets/shop/address-routes");
@@ -16,6 +13,13 @@ const shopOrderRouter = require("./routets/shop/orders-routes");
 const shopSearchRouter = require("./routets/shop/search-routes");
 const shopReviewRouter = require("./routets/shop/review-routes");
 const commonFeatureRouter = require("./routets/common/features-routes");
+const cookieConsentRouter = require("./routets/cookie/cookie-routes");
+
+// Import admin Routes
+const adminProductsRouter = require("./routets/admin/products-routes");
+const adminOrderRouter = require("./routets/admin/orders-routes");
+const adminUsersRouter = require("./routets/admin/user-routes");
+const adminCookieRouter = require("./routets/admin/cookie-routes");
 
 // Connect Database
 connectDB();
@@ -48,29 +52,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ✅ HTTP cookies
-app.post("/set-consent", (req, res) => {
-  const { consent } = req.body;
-  res.cookie("cookieConsent", consent, {
-    httpOnly: false, // js se accesible nhi hoti , Security ke liye
-    // use hota hai → XSS attacks se bachata hai.
-    secure: true, // ✅ deployed HTTPS site me correct
-    sameSite: "Lax", // Ye control karta hai ki cookie cross-site
-    // requests me send hogi ya nahi.
-    maxAge: 1000 * 60 * 60 * 24 * 365 * 20, // optional: long lifetime
-  });
+// app.post("/set-consent", (req, res) => {
+//   const { consent } = req.body;
+//   res.cookie("cookieConsent", consent, {
+//     httpOnly: false, // js se accesible nhi hoti , Security ke liye
+//     // use hota hai → XSS attacks se bachata hai.
+//     secure: true, // ✅ deployed HTTPS site me correct
+//     sameSite: "Lax", // Ye control karta hai ki cookie cross-site
+//     // requests me send hogi ya nahi.
+//     maxAge: 1000 * 60 * 60 * 24 * 365 * 20, // optional: long lifetime
+//   });
 
-  res.json({ message: "Consent saved" });
-});
+//   res.json({ message: "Consent saved" });
+// });
 
 // ✅ Routes
 app.get("/", (req, res) => {
   res.json({ msg: "Welcome to Zylomart" });
 });
 
+// Import user Routes
 app.use("/api/auth", authRouter);
-app.use("/api/admin/orders", adminOrderRouter);
-app.use("/api/admin/users", adminUsersRouter);
-app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/shop/products", shopProductsRouter);
 app.use("/api/shop/cart", shopCartRouter);
 app.use("/api/shop/address", shopAddressRouter);
@@ -78,6 +80,13 @@ app.use("/api/shop/order", shopOrderRouter);
 app.use("/api/shop/search", shopSearchRouter);
 app.use("/api/shop/review", shopReviewRouter);
 app.use("/api/common/feature", commonFeatureRouter);
+app.use("/api/cookie", cookieConsentRouter);
+
+// Import admin Routes
+app.use("/api/admin/orders", adminOrderRouter);
+app.use("/api/admin/users", adminUsersRouter);
+app.use("/api/admin/products", adminProductsRouter);
+app.use("/api/admin/cookies", adminCookieRouter);
 
 // ✅ Server Start
 app.listen(PORT, () =>
